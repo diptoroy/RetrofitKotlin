@@ -16,20 +16,35 @@ class MainActivity : AppCompatActivity() {
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getEmployeeData()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        //viewModel.getEmployeeData()
+        viewModel.getPost()
 
-        viewModel.repoResponse.observe(this, Observer { response ->
-            if (response.isSuccessful){
-                Log.d("Response",response.body()?.employee_id.toString())
-                Log.d("Response",response.body()?.employee_name.toString())
-                Log.d("Response",response.body()?.employee_age.toString())
-                Log.d("Response",response.body()?.employee_salary.toString())
+//        viewModel.repoResponse.observe(this, Observer { response ->
+//            if (response.isSuccessful) {
+//                Log.d("Response", response.body()?.employee_id.toString())
+//                Log.d("Response", response.body()?.employee_name.toString())
+//                Log.d("Response", response.body()?.employee_age.toString())
+//                Log.d("Response", response.body()?.employee_salary.toString())
+//
+//                name.text = response.body()?.employee_name
+//
+//            } else {
+//                Log.d("Response", response.errorBody().toString())
+//                name.text = response.code().toString()
+//            }
+//        })
 
-                name.text = response.body()?.employee_name!!
+        viewModel.postResponse.observe(this, Observer { response ->
+            if (response.isSuccessful) {
+                Log.d("Response", response.body()?.userId.toString())
+                Log.d("Response", response.body()?.title.toString())
+                Log.d("Response", response.body()?.body.toString())
 
-            }else{
-                Log.d("Response",response.errorBody().toString())
+                name.text = response.body()?.title!!.toString()
+
+            } else {
+                Log.d("Response", response.errorBody().toString())
                 name.text = response.code().toString()
             }
         })

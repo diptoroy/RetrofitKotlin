@@ -6,4 +6,8 @@ class Repository {
     suspend fun getEmployeeData():Response<Employee>{
         return ApiClient.api.getEmployeeData()
     }
+
+    suspend fun getPost():Response<Post>{
+        return ApiClient.api.getPost()
+    }
 }
